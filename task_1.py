@@ -38,7 +38,8 @@ def get_recipes(filename):
 def get_shop_list_by_dishes(dishes, person_count, filename='recipes.txt'):
     if dishes[0] == dishes[1]:
         print('Вы ввели два одинаковых блюда')
-    else:
+        print(f'Расчет для одного блюда {dishes[0]}')
+        dishes = [dishes[0]]
         result = {}
         for dish in dishes:
             ingred_list = get_recipes(filename)[dish]
@@ -57,5 +58,5 @@ cook_book = get_recipes('recipes.txt')
 pp.pprint(cook_book)
 
 print('\nНеобходимые покупки для блюд:')
-pp.pprint(get_shop_list_by_dishes(['Запеченный картофель', \
-'Запеченный картофель'], 3))
+pp.pprint(get_shop_list_by_dishes(['Омлет', \
+'Омлет'], 3))
