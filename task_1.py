@@ -37,21 +37,19 @@ def get_recipes(filename):
 
 def get_shop_list_by_dishes(dishes, person_count, filename='recipes.txt'):
     if dishes[0] == dishes[1]:
-        print('Вы ввели два одинаковых блюда')
-        print(f'Расчет для одного блюда {dishes[0]}')
         dishes = [dishes[0]]
-        result = {}
-        for dish in dishes:
-            ingred_list = get_recipes(filename)[dish]
-            for item in ingred_list:
-                ingred_name = item['ingredient_name']
-                ingred_found = result.setdefault(ingred_name,
-                                                 {'measure': item['measure'],
-                                                 'quantity': 0})
-                ingred_found['quantity'] = ingred_found['quantity'] + \
-                item['quantity']
-                result[ingred_name] = ingred_found
-        return result
+    result = {}
+    for dish in dishes:
+        ingred_list = get_recipes(filename)[dish]
+        for item in ingred_list:
+            ingred_name = item['ingredient_name']
+            ingred_found = result.setdefault(ingred_name,
+                                             {'measure': item['measure'],
+                                             'quantity': 0})
+            ingred_found['quantity'] = ingred_found['quantity'] + \
+            item['quantity'] * person_count
+            result[ingred_name] = ingred_found
+    return result
 
 print('Рецепты:')
 cook_book = get_recipes('recipes.txt')
