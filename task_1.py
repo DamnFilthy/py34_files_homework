@@ -36,8 +36,12 @@ def get_recipes(filename):
     return result
 
 def get_shop_list_by_dishes(dishes, person_count, filename='recipes.txt'):
-    if dishes[0] == dishes[1]:
-        dishes = [dishes[0]]
+    # убираем повторяющиеся блюда
+    for i, v in enumerate(dishes):
+        if dishes[i] in dishes[2:]:
+            del dishes[i]
+    # if dishes[0] == dishes[1]:
+    #     dishes = [dishes[0]]
     result = {}
     for dish in dishes:
         ingred_list = get_recipes(filename)[dish]
@@ -57,4 +61,4 @@ pp.pprint(cook_book)
 
 print('\nНеобходимые покупки для блюд:')
 pp.pprint(get_shop_list_by_dishes(['Омлет', \
-'Омлет'], 3))
+'Утка по-пекински', 'Омлет', 'Утка по-пекински'], 3))
